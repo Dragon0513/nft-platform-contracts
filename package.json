@@ -1,7 +1,7 @@
 {
-  "name": "opensea-creatures",
+  "name": "nft-platform-contracts",
   "version": "0.1.0",
-  "description": "OpenSea's smart contracts, including ERC721 templates, factories, and the storefront builder.",
+  "description": "RFOX Labs' Smart Contracts, including ERC721 templates, and factories.",
   "private": true,
   "main": "index.js",
   "types": "index.d.ts",
@@ -16,7 +16,9 @@
   "author": "support@opensea.io",
   "license": "ISC",
   "homepage": "https://github.com/ProjectOpenSea/opensea-creatures#readme",
-  "dependencies": {
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "truffle-plugin-verify": "^0.5.8",
     "@0x/subproviders": "^6.4.1",
     "@openzeppelin/contracts": "^4.2.0",
     "@pinata/sdk": "^1.1.23",
@@ -34,9 +36,5 @@
   "engines": {
     "node": "^12.18.x",
     "yarn": "~1.22.4"
-  },
-  "devDependencies": {
-    "eslint": "^7.22.0",
-    "truffle-plugin-verify": "^0.5.8"
   }
 }
