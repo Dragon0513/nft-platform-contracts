@@ -1,5 +1,4 @@
-build/
-flattened/
-node_modules/
-.env*
-*.DS_Store
+/build/contracts/*.json
+!/build/contracts/RFOXCollection.json
+/node_modules/
+/.env

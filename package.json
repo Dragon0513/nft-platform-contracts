@@ -4,6 +4,7 @@
   "description": "OpenSea's smart contracts, including ERC721 templates, factories, and the storefront builder.",
   "private": true,
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "ganache-cli": "ganache-cli -d -p 7545 --gasLimit=10000000",
     "test": "truffle test"
