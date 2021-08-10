@@ -6,7 +6,6 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "ganache-cli": "ganache-cli -d -p 7545 --gasLimit=10000000",
     "build": "hardhat compile",
     "test": "hardhat test"
   },
@@ -29,14 +28,6 @@
     "eth-sig-util": "^3.0.1",
     "ethereum-waffle": "^3.0.0",
     "ethers": "^5.4.4",
-    "hardhat": "^2.6.0",
-    "opensea-js": "^1.1.5",
-    "truffle": "^5.1.30",
-    "truffle-assertions": "^0.9.2",
-    "truffle-contract-size": "^2.0.1",
-    "truffle-flattener": "^1.4.2",
-    "truffle-hdwallet-provider": "1.0.17",
-    "truffle-plugin-verify": "^0.5.8",
-    "web3": "^1.0.0-beta.34"
+    "hardhat": "^2.6.0"
   }
 }
