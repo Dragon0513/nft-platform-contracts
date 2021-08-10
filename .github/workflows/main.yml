@@ -1,0 +1,16 @@
+name: NFT Platform Contracts CI
+
+on:
+  # We want to trigger the build & test pipelines in every branch.
+  push:
+    # But do no run the pipeline when only `md` files are modified.
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install --frozen-lockfile
+      - run: yarn test
