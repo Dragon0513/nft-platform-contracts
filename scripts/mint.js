@@ -2,7 +2,6 @@ const HDWalletProvider = require("truffle-hdwallet-provider");
 const web3 = require("web3");
 const MNEMONIC = process.env.MNEMONIC;
 const NODE_API_KEY = process.env.INFURA_KEY;
-const FACTORY_CONTRACT_ADDRESS = process.env.FACTORY_CONTRACT_ADDRESS;
 const NFT_CONTRACT_ADDRESS = process.env.NFT_CONTRACT_ADDRESS;
 const OWNER_ADDRESS = process.env.OWNER_ADDRESS;
 const NETWORK = process.env.NETWORK;
@@ -17,12 +16,6 @@ if (!MNEMONIC || !NODE_API_KEY || !OWNER_ADDRESS || !NETWORK) {
   return;
 }
 
-// {
-//     "description": "Friendly monsters of the Open sea.",
-//     "external_link": "https://github.com/ProjectOpenSea/opensea-creatures/",
-//     "image": "https://example.com/image.png",
-//     "name": "OpenSea Creatures for RFOX"
-// }
 
 const NFT_ABI = [
   {

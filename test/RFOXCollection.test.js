@@ -15,9 +15,12 @@ describe("RFOXCollection Contract", () => {
     expect(await contract.symbol()).to.equal('TST');
   });
 
-  it('should get URI for minted token', async () => {
-    await contract.safeMint('0xB9cD322bbC641B93e9A9F4262283Fd30C44c35d9', 'QmYSrTKu4GQoKSH17wn5SsCVEaEQMwxDRsTfwrzD43HWRD');
-    expect(await contract.tokenURI(0)).to.equal('ipfs://QmYSrTKu4GQoKSH17wn5SsCVEaEQMwxDRsTfwrzD43HWRD');
+  it('should get URI for minted tokens', async () => {
+    for (let i = 0; i < 10; i++) {
+      const hash =  `QmYSrTKu4GQoKSH17wn5SsCVEaEQMwxDRsTfwrzD43HWR${i}`;
+      await contract.safeMint('0xB9cD322bbC641B93e9A9F4262283Fd30C44c35d9', hash);
+      expect(await contract.tokenURI(i)).to.equal(`ipfs://${hash}`);
+    }
   });
 
 });
