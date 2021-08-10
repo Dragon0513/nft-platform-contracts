@@ -26,7 +26,7 @@ async function main() {
     console.log(res);
 
     const RFOXCollection = await ethers.getContractFactory("RFOXCollection");
-    const contract = await RFOXCollection.deploy(name, `ipfs://${res.IpfsHash}`, 'TST');
+    const contract = await RFOXCollection.deploy(`ipfs://${res.IpfsHash}`, name, 'TST');
 
     console.log('Deployed to', contract.address, 'in transaction', contract.deployTransaction.hash);
 }

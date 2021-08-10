@@ -1,54 +1,11 @@
-const HDWalletProvider = require("truffle-hdwallet-provider");
-const web3 = require("web3");
-const MNEMONIC = process.env.MNEMONIC;
-const NODE_API_KEY = process.env.INFURA_KEY;
-const NFT_CONTRACT_ADDRESS = process.env.NFT_CONTRACT_ADDRESS;
 const OWNER_ADDRESS = process.env.OWNER_ADDRESS;
-const NETWORK = process.env.NETWORK;
 const NUM_CREATURES = 12;
 
 const pinata = require('@pinata/sdk')(process.env.PINATA_API_KEY, process.env.PINATA_API_SECRET);
 
-if (!MNEMONIC || !NODE_API_KEY || !OWNER_ADDRESS || !NETWORK) {
-  console.error(
-    "Please set a mnemonic, Alchemy/Infura key, owner, network, and contract address."
-  );
-  return;
-}
-
-
-const NFT_ABI = [
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_to",
-        type: "address",
-      },
-      {
-        name: "_tokenURI",
-        type: "string",
-      },
-    ],
-    name: "safeMint",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-];
-
 async function main() {
-  const network = NETWORK === "mainnet" || NETWORK === "live" ? "mainnet" : "rinkeby";
-  const provider = new HDWalletProvider(MNEMONIC, "https://" + network + ".infura.io/v3/" + NODE_API_KEY);
-  const web3Instance = new web3(provider);
-
-  const nftContract = new web3Instance.eth.Contract(
-    NFT_ABI,
-    NFT_CONTRACT_ADDRESS,
-    { gasLimit: "1000000" }
-  );
-  console.log(nftContract);
+  const RFOXCollection = await ethers.getContractFactory('RFOXCollection');
+  const contract = await RFOXCollection.attach(process.env.NFT_CONTRACT_ADDRESS);
 
   // Creatures issued directly to the owner.
   for (var i = 0; i < NUM_CREATURES; i++) {
@@ -82,9 +39,7 @@ async function main() {
     });
     console.log(res);
 
-    const result = await nftContract.methods
-      .safeMint(OWNER_ADDRESS, res.IpfsHash)
-      .send({ from: OWNER_ADDRESS });
+    const result = await contract.safeMint(OWNER_ADDRESS, res.IpfsHash);
     console.log("Minted creature. Transaction: " + result.transactionHash);
   }
 }
