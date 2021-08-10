@@ -1,4 +1,5 @@
-/build/contracts/*.json
-!/build/contracts/RFOXCollection.json
+/artifacts/**/*.json
+!/artifacts/contracts/RFOXCollection.sol/RFOXCollection.json
+/cache/
 /node_modules/
 /.env
