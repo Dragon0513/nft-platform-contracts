@@ -1,4 +1,4 @@
-require('@nomiclabs/hardhat-ethers')
+require('@nomiclabs/hardhat-waffle');
 
 const networks = process.env.INFURA_KEY && process.env.OWNER_ADDRESS && process.env.MNEMONIC ?
   {
