@@ -1,12 +1,15 @@
-## OpenSea Creatures - Starter ERC721, ERC1155, and factory contracts
+# RFOXLabs Collection ERC721 Smart Contracts
 
-What's included:
+## What's included
 
 ### Sample ERC721/ERC1155 Contracts
 
-This includes a very simple sample ERC721 / ERC1155 for the purposes of demonstrating integration with the [OpenSea](https://opensea.io) marketplace. We include a script for minting the items.
+This includes a very simple sample ERC721 / ERC1155 for the purposes of demonstrating integration with the [OpenSea](https://opensea.io) marketplace.
+We include a script for minting the items.
 
-Additionally, this contract whitelists the proxy accounts of OpenSea users so that they are automatically able to trade the ERC721 item on OpenSea (without having to pay gas for an additional approval). On OpenSea, each user has a "proxy" account that they control, and is ultimately called by the exchange contracts to trade their items. (Note that this addition does not mean that OpenSea itself has access to the items, simply that the users can list them more easily if they wish to do so)
+Additionally, this contract whitelists the proxy accounts of OpenSea users so that they are automatically able to trade the ERC721 item on OpenSea (without having to pay gas for an additional approval).
+On OpenSea, each user has a "proxy" account that they control, and is ultimately called by the exchange contracts to trade their items.
+(Note that this addition does not mean that OpenSea itself has access to the items, simply that the users can list them more easily if they wish to do so)
 
 ### Factory Contracts
 
@@ -23,7 +26,7 @@ Either make sure you're running a version of node compliant with the `engines` r
 
 Run
 
-```bash
+```sh
 yarn
 ```
 
@@ -49,7 +52,18 @@ export MNEMONIC="<metmask_mnemonic>"
 DEPLOY_CREATURES_SALE=1 yarn truffle deploy --network rinkeby
 ```
 
-### Minting tokens
+### Deploying to the mainnet Ethereum network
+
+Make sure your wallet has at least a few dollars worth of ETH in it.
+Then run
+
+```sh
+yarn truffle migrate --network live
+```
+
+Look for your newly deployed contract address in the logs! 🥳
+
+## Minting tokens
 
 After deploying to the Rinkeby network, there will be a contract on Rinkeby that will be viewable on [Rinkeby Etherscan](https://rinkeby.etherscan.io). For example, here is a [recently deployed contract](https://rinkeby.etherscan.io/address/0xeba05c5521a3b81e23d15ae9b2d07524bc453561). You should set this contract address and the address of your Metamask account as environment variables when running the minting script. If a [CreatureFactory was deployed](https://github.com/ProjectOpenSea/opensea-creatures/blob/master/migrations/2_deploy_contracts.js#L38), which the sample deploy steps above do, you'll need to specify its address below as it will be the owner on the NFT contract, and only it will have mint permissions. In that case, you won't need NFT_CONTRACT_ADDRESS, as all we need is the contract with mint permissions here.
 
@@ -61,7 +75,7 @@ export NETWORK="rinkeby"
 node scripts/mint.js
 ```
 
-### Diagnosing Common Issues
+## Diagnosing Common Issues
 
 If you're running a modified version of `sell.js` and not getting expected behavior, check the following:
 
@@ -79,7 +93,7 @@ If you're running a modified version of `sell.js` and not getting expected behav
 
 - Are you running a version of node compliant with the `engines` requirement in `package.json`? If no, try `nvm use; rm -rf node_modules; yarn`
 
-# About OpenSea Creature Accessories
+## About OpenSea Creature Accessories
 
 This is a sample ERC-1155 contract for the purposes of demonstrating integration with the [OpenSea](https://opensea.io) marketplace for crypto collectibles. We also include:
 
@@ -109,58 +123,21 @@ This contract overrides the `isApprovedForAll` method in order to whitelist the 
 
 Note that this addition does not mean that OpenSea itself has access to the items, simply that the users can list them more easily if they wish to do so!
 
-# Requirements
-
-### Node version
-
-Either make sure you're running a version of node compliant with the `engines` requirement in `package.json`, or install Node Version Manager [`nvm`](https://github.com/creationix/nvm) and run `nvm use` to use the correct version of node.
-
-## Installation
-
-Run
-
-```bash
-yarn
-```
-
-## Deploying
-
-### Deploying to the Rinkeby network.
-
-1. Follow the steps above to get a Rinkeby node API key
-2. Using your API key and the mnemonic for your MetaMask wallet (make sure you're using a MetaMask seed phrase that you're comfortable using for testing purposes), run:
-
-```
-export ALCHEMY_KEY="<alchemy_project_id>" # or you can use INFURA_KEY
-export MNEMONIC="<metmask_mnemonic>"
-DEPLOY_ACCESSORIES_SALE=1 yarn truffle migrate --network rinkeby
-```
-
-### Deploying to the mainnet Ethereum network.
-
-Make sure your wallet has at least a few dollars worth of ETH in it. Then run:
-
-```
-yarn truffle migrate --network live
-```
-
-Look for your newly deployed contract address in the logs! 🥳
-
-### Viewing your items on OpenSea
+## Viewing your items on OpenSea
 
 OpenSea will automatically pick up transfers on your contract. You can visit an asset by going to `https://opensea.io/assets/CONTRACT_ADDRESS/TOKEN_ID`.
 
 To load all your metadata on your items at once, visit [https://opensea.io/get-listed](https://opensea.io/get-listed) and enter your address to load the metadata into OpenSea! You can even do this for the Rinkeby test network if you deployed there, by going to [https://rinkeby.opensea.io/get-listed](https://rinkeby.opensea.io/get-listed).
 
-### Troubleshooting
+## Troubleshooting
 
-#### It doesn't compile!
+### It doesn't compile
 
 Install truffle locally: `yarn add truffle`. Then run `yarn truffle migrate ...`.
 
 You can also debug just the compile step by running `yarn truffle compile`.
 
-#### It doesn't deploy anything!
+### It doesn't deploy anything
 
 This is often due to the truffle-hdwallet provider not being able to connect. Go to your [Alchemy Dashboard](https://dashboard.alchemyapi.io/signup?referral=affiliate:e535c3c3-9bc4-428f-8e27-4b70aa2e8ca5) (or infura.io) and create a new project. Use your "project ID" as your new `ALCHEMY_KEY` and make sure you export that command-line variable above.
 
@@ -168,12 +145,16 @@ This is often due to the truffle-hdwallet provider not being able to connect. Go
 
 To implement the ERC1155 standard, these contracts use the Multi Token Standard by [Horizon Games](https://horizongames.net/), available on [npm](https://www.npmjs.com/package/multi-token-standard) and [github](https://github.com/arcadeum/multi-token-standard) and also under the MIT License.
 
-# Running Local Tests
+## Running Local Tests
 
 In one terminal window, run:
 
-    yarn run ganache-cli
+```sh
+yarn run ganache-cli
+```
 
 Once Ganache has started, run the following in another terminal window:
 
-    yarn run test
+```sh
+yarn run test
+```sh
