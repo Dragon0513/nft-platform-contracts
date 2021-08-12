@@ -29,9 +29,6 @@ const seaport = new OpenSeaPort(provider,
 )
 
 async function main() {
-  const a = await seaport.api.getBundles({ owner: OWNER_ADDRESS });
-  console.log(a)
-
   const asset = await seaport.api.getAsset({
     tokenAddress: NFT_CONTRACT_ADDRESS,
     tokenId: 1,
