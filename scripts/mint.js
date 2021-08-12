@@ -1,5 +1,5 @@
 const OWNER_ADDRESS = process.env.OWNER_ADDRESS;
-const NUM_CREATURES = 12;
+const NUM_CREATURES = 5;
 
 const pinata = require('@pinata/sdk')(process.env.PINATA_API_KEY, process.env.PINATA_API_SECRET);
 
@@ -29,8 +29,6 @@ async function main() {
       pinataMetadata: {
         name: 'MyCustomName',
         keyvalues: {
-          customKey: 'customValue',
-          customKey2: 'customValue2'
         }
       },
       pinataOptions: {
