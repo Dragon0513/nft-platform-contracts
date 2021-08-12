@@ -2,7 +2,7 @@ const pinata = require('@pinata/sdk')(process.env.PINATA_API_KEY, process.env.PI
 
 async function main() {
     // OpenSea proxy registry addresses for rinkeby and mainnet.
-    // const proxyRegistryAddress = '0xf57b2c51ded3a29e6891aba85459d600256cf317';
+    const proxyRegistryAddress = '0xf57b2c51ded3a29e6891aba85459d600256cf317';
 
     const name = 'OpenSea Creatures for RFOX';
 
@@ -15,8 +15,6 @@ async function main() {
         pinataMetadata: {
             name: 'Collection',
             keyvalues: {
-                // customKey: 'customValue',
-                // customKey2: 'customValue2'
             }
         },
         pinataOptions: {
@@ -26,7 +24,7 @@ async function main() {
     console.log(res);
 
     const RFOXCollection = await ethers.getContractFactory("RFOXCollection");
-    const contract = await RFOXCollection.deploy(`ipfs://${res.IpfsHash}`, name, 'TST');
+    const contract = await RFOXCollection.deploy(`ipfs://${res.IpfsHash}`, name, 'TST', proxyRegistryAddress);
 
     console.log('Deployed to', contract.address, 'in transaction', contract.deployTransaction.hash);
 }
