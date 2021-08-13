@@ -4,7 +4,7 @@ async function main() {
     // OpenSea proxy registry addresses for rinkeby and mainnet.
     const proxyRegistryAddress = '0xf57b2c51ded3a29e6891aba85459d600256cf317';
 
-    const name = 'New collection for RFOX';
+    const name = 'This is a test for RFLabs';
 
     const res = await pinata.pinJSONToIPFS({
         name,
