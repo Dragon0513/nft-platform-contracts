@@ -32,10 +32,12 @@ contract RFOXCollection is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return _contractURI;
     }
 
-    function safeMint(address _to, string memory _tokenURI) public onlyOwner {
+    function safeMint(address to_, string memory tokenURI_) public onlyOwner {
+        require(bytes(tokenURI_).length > 0, "RFOXCOllection: `tokenURI_` is empty");
+
         uint256 tokenId = _tokenIdCounter.current();
-        _safeMint(_to, tokenId);
-        _setTokenURI(tokenId, _tokenURI);
+        _safeMint(to_, tokenId);
+        _setTokenURI(tokenId, tokenURI_);
         _tokenIdCounter.increment();
     }
  
@@ -61,6 +63,16 @@ contract RFOXCollection is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         returns (string memory)
     {
         return super.tokenURI(tokenId);
+    }
+
+    /**
+     *
+     */
+    function setTokenURI(uint256 tokenId_, string memory tokenURI_) public {
+        require(_isApprovedOrOwner(_msgSender(), tokenId_), "RFOXCollection: `setTokenURI` caller is not owner nor approved");
+        require(bytes(tokenURI_).length > 0, "RFOXCOllection: `tokenURI_` is empty");
+
+        _setTokenURI(tokenId_, tokenURI_);
     }
 
     function supportsInterface(bytes4 interfaceId)
