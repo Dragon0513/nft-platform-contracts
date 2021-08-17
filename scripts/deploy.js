@@ -29,7 +29,7 @@ async function main() {
             }
         },
         pinataOptions: {
-            cidVersion: 0
+            cidVersion: 1
         }
     });
     console.log(res);
