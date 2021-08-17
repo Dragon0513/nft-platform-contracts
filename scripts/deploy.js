@@ -1,5 +1,11 @@
 const pinata = require('@pinata/sdk')(process.env.PINATA_API_KEY, process.env.PINATA_API_SECRET);
 
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 async function main() {
     // OpenSea proxy registry addresses for rinkeby and mainnet.
     const proxyRegistryAddress = '0xf57b2c51ded3a29e6891aba85459d600256cf317';
@@ -29,9 +35,38 @@ async function main() {
     console.log(res);
 
     const RFOXCollection = await ethers.getContractFactory("RFOXCollection");
-    const contract = await RFOXCollection.deploy(`ipfs://${res.IpfsHash}`, name, 'TST', proxyRegistryAddress);
+    const contractURI = `ipfs://${res.IpfsHash}`;
+    const symbol = 'TST';
+    const contract = await RFOXCollection.deploy(contractURI, name, symbol, proxyRegistryAddress);
 
     console.log('Deployed to', contract.address, 'in transaction', contract.deployTransaction.hash);
+
+    {
+        console.log('Waiting to check contract deployment..');
+        await sleep(10000);
+
+        const RFOXCollection_ = await ethers.getContractFactory('RFOXCollection');
+        const contract_ = await RFOXCollection_.attach(contract.address);
+
+        console.log('Check contract deployment',
+            await contract_.contractURI(),
+            await contract_.name(),
+            await contract_.symbol()
+        );
+    }
+
+    console.log('Verify smart contract in Etherscan ..')
+
+    await hre.run("verify:verify", {
+        address: contract.address,
+        constructorArguments: [contractURI, name, symbol, proxyRegistryAddress],
+    });
+
 }
 
-main();
+main()
+    .then(() => process.exit(0))
+    .catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
