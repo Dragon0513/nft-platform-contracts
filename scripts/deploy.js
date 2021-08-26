@@ -36,14 +36,14 @@ async function main() {
 
     const RFOXCollection = await ethers.getContractFactory("RFOXCollection");
     const contractURI = `ipfs://${res.IpfsHash}`;
-    const symbol = 'TST';
-    const contract = await RFOXCollection.deploy(contractURI, name, symbol, proxyRegistryAddress);
+    const symbol = 'RFOX-COL';
+    const contract = await RFOXCollection.deploy(contractURI, 'RFOX:' + name, symbol, proxyRegistryAddress);
 
     console.log('Deployed to', contract.address, 'in transaction', contract.deployTransaction.hash);
 
     {
         console.log('Waiting to check contract deployment..');
-        await sleep(10000);
+        await sleep(20000);
 
         const RFOXCollection_ = await ethers.getContractFactory('RFOXCollection');
         const contract_ = await RFOXCollection_.attach(contract.address);
