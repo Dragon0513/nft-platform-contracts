@@ -23,3 +23,12 @@ jobs:
       - uses: actions/checkout@v2
       - run: yarn install --frozen-lockfile
       - run: yarn test
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install --frozen-lockfile
+      - run: yarn coverage
+      - run: git remote set-url origin https://git:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+      - run: yarn gh-pages --dist coverage/ --user "Github Workflow Bot <noemail@epam.github.io>"

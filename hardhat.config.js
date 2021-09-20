@@ -1,5 +1,6 @@
 require('@nomiclabs/hardhat-waffle');
-require("@nomiclabs/hardhat-etherscan");
+require('@nomiclabs/hardhat-etherscan');
+require('solidity-coverage');
 
 const networks = process.env.INFURA_KEY && process.env.OWNER_ADDRESS && process.env.MNEMONIC ?
   {

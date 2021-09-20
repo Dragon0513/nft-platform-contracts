@@ -3,3 +3,6 @@
 /cache/
 /node_modules/
 /.env
+
+/coverage/
+/coverage.json
