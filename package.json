@@ -7,10 +7,11 @@
   "types": "index.d.ts",
   "scripts": {
     "build": "hardhat compile",
-    "test": "hardhat test",
-    "coverage": "hardhat coverage",
-    "deploy": "source .env && hardhat run --network rinkeby scripts/deploy.js",
-    "mint": "source .env && hardhat run --network rinkeby scripts/mint.js"
+    "test": "hardhat test test/RFOXCollection.test.js",
+    "test:int": ". ./.env && hardhat test test/RFOXCollection.int.test.js",
+    "coverage": "hardhat coverage --testfiles test/RFOXCollection.test.js",
+    "deploy": ". ./.env && hardhat run --network rinkeby scripts/deploy.js",
+    "mint": ". ./.env && hardhat run --network rinkeby scripts/mint.js"
   },
   "license": "ISC",
   "devDependencies": {
